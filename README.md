@@ -17,11 +17,6 @@ This project builds a Vietnamese political comment dataset from social media pla
 - `labeling/`: Post summarization and Gemini-based comment annotation
 - `dataset/sample_dataset.csv`: Sample of 100 anonymized rows from v1
 
-## Dataset Versions
-
-- **Version 1**: 17,000+ raw comments → 11,685 cleaned entries (completed)
-- **Version 2**: 32,762 raw comments → 25,724 cleaned entries (labeling in progress)
-
 ## Preprocessing Pipeline (7 Steps)
 
 The preprocessing pipeline follows this specific order for optimal text cleaning:
