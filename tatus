@@ -1,0 +1,59 @@
+[33mcommit 897be5db8ec05c34a4e4f79628a7d3f1dd996494[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Mon Jul 7 17:34:07 2025 +0700
+
+    update README with YouTube platform and v2 dataset stats
+
+[33mcommit 57273f877f949bbf0cdfbc2257132df21ec3ca78[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Mon Jul 7 17:15:31 2025 +0700
+
+    improve smart de-teencode and better filtering
+
+[33mcommit ebb1306dc2eadb3d3e5f4a793dde4f8baeb94cae[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Mon Jul 7 17:06:19 2025 +0700
+
+    remove old pipeline and workflow
+
+[33mcommit bcab3ea482fc89e127dfc82480a6c3512bba2397[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Mon Jul 7 17:04:05 2025 +0700
+
+    reorder workflow (summarize before labeling) and enhance pipeline modularity
+
+[33mcommit aeb0198b181d95f42d1e3f1f3e0ae3e0b0e13b39[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Mon Jul 7 16:52:25 2025 +0700
+
+    add Youtube scraping scripts
+
+[33mcommit d47481bc0fa4fb6e939babc8d8cbdfb47c20dbb5[m
+Author: Trần Tấn Tài <140489991+taitran501@users.noreply.github.com>
+Date:   Fri Jun 13 01:25:21 2025 +0700
+
+    Update README.md
+
+[33mcommit d713973a3e908df0dfd012cc32f524ac48dc08b2[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Fri Jun 13 01:21:50 2025 +0700
+
+    Add anonymized sample, remove full dataset
+
+[33mcommit 75a68b10ae76fb6453e3b93846036a046d97ad54[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Fri Jun 13 01:17:27 2025 +0700
+
+    Remove personal dataset from repository
+
+[33mcommit d2fab381dbb53169384eec97cb77c762a8597024[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Fri Jun 13 01:15:20 2025 +0700
+
+    First commit
+
+[33mcommit d1e7f6921f34c7b452fb5d422d159ae9998ee29a[m
+Author: Trần Tấn Tài <140489991+taitran501@users.noreply.github.com>
+Date:   Fri Jun 13 01:10:34 2025 +0700
+
+    Initial commit

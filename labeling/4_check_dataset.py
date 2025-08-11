@@ -200,6 +200,7 @@ class FastCommentAuditor:
         self.root.bind("d", lambda event: self.mark_for_deletion())
         self.root.bind("<Delete>", lambda event: self.mark_for_deletion())
         self.root.bind("u", lambda event: self.unmark_deletion())
+        self.root.bind("<Control-Shift-D>", lambda event: self.mark_post_for_deletion()) # Phím tắt mới
         
         # Load checkpoint if it exists
         self.load_checkpoint()
@@ -279,12 +280,13 @@ class FastCommentAuditor:
         self.tree.heading("platform", text="Platform")
         self.tree.heading("length", text="Words")
         
-        self.tree.column("idx", width=60, stretch=False)
-        self.tree.column("comment", width=800, stretch=True)
-        self.tree.column("label", width=150, stretch=False)
-        self.tree.column("flag", width=60, stretch=False)
-        self.tree.column("platform", width=100, stretch=False)
-        self.tree.column("length", width=60, stretch=False)
+        # Set initial widths but allow resizing (remove stretch=False)
+        self.tree.column("idx", width=60, minwidth=40)
+        self.tree.column("comment", width=800, minwidth=200)  # Main column can stretch
+        self.tree.column("label", width=150, minwidth=100)
+        self.tree.column("flag", width=60, minwidth=50)
+        self.tree.column("platform", width=100, minwidth=80)
+        self.tree.column("length", width=60, minwidth=50)
         
         # Set up scrollbars
         vsb.configure(command=self.tree.yview)
@@ -306,6 +308,8 @@ class FastCommentAuditor:
         self.context_menu.add_separator()
         self.context_menu.add_command(label="Mark for Deletion (4)", command=self.mark_for_deletion)
         self.context_menu.add_command(label="Unmark (5)", command=self.unmark_deletion)
+        self.context_menu.add_separator()
+        self.context_menu.add_command(label="Mark All Comments for this Post for Deletion (Ctrl+Shift+D)", command=self.mark_post_for_deletion) # Tùy chọn menu mới
         self.context_menu.add_separator()
         self.context_menu.add_command(label="Edit Comment Text (F2)", command=lambda: self.show_full_comment(None))
         
@@ -432,6 +436,46 @@ class FastCommentAuditor:
         self.summary_text.delete(1.0, tk.END)
         self.summary_text.insert(tk.END, str(summary) if isinstance(summary, str) else "[NO SUMMARY TEXT]")
     
+    def mark_post_for_deletion(self):
+        """Mark all comments associated with the selected post for deletion."""
+        selection = self.tree.selection()
+        if not selection:
+            messagebox.showwarning("No Selection", "Please select a comment first.")
+            return
+
+        # Get the post_raw from the first selected comment
+        item = selection[0]
+        idx = int(self.tree.item(item, "values")[0])
+        
+        post_col = 'post_raw' if 'post_raw' in self.df.columns else 'post'
+        if post_col not in self.df.columns:
+            messagebox.showerror("Error", "Could not find 'post_raw' or 'post' column.")
+            return
+            
+        target_post = self.df.loc[idx, post_col]
+
+        # Find all comments with the same post
+        mask = self.df[post_col] == target_post
+        affected_indices = self.df[mask].index
+        
+        if not messagebox.askyesno("Confirm Deletion", 
+                                   f"This will mark {len(affected_indices)} comments from the same post for deletion. Are you sure?"):
+            return
+
+        # Mark them for deletion in the dataframe
+        self.df.loc[affected_indices, 'delete_flag'] = True
+
+        # Update the treeview visually
+        for tree_item in self.tree.get_children():
+            item_idx = int(self.tree.item(tree_item, "values")[0])
+            if item_idx in affected_indices:
+                values = list(self.tree.item(tree_item, "values"))
+                values[3] = "✓"
+                self.tree.item(tree_item, values=values, tags='flagged')
+        
+        self.update_stats()
+        messagebox.showinfo("Success", f"Marked {len(affected_indices)} comments for deletion.")
+
     def batch_update_labels(self, label_value):
         """Update labels for all selected comments"""
         selection = self.tree.selection()

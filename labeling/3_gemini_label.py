@@ -175,14 +175,14 @@ Your task is to classify Vietnamese comments into three categories based on thei
 PHAN_DONG: Comments expressing anti-government, anti-communist, or pro-reactionary views
 - Criticizes current Vietnamese government/party/socialist system
 - Uses derogatory terms for the government: "việt cộng", "đảng cướp", "cs thối", "độc tài"
-- Supports opposing political forces: "VNCH", "ba que", reactionary groups
+- Supports opposing political forces: "VNCH", "dmcs", reactionary groups
 - Spreads false information about Vietnamese history or achievements
 
 KHONG_PHAN_DONG: Comments expressing pro-government or anti-reactionary views  
 - Supports Vietnamese government/party/socialist system
 - Defends Vietnamese revolutionary history and achievements
 - Criticizes reactionary/anti-government forces
-- Uses terms like "phản động", "cali", "vệ quốc" to criticize opposition
+- Uses terms like "phản động", "cali", "vệ quốc", "ba que" to criticize opposition
 
 KHONG_LIEN_QUAN: Comments unrelated to politics
 - Sports, entertainment, daily life discussions

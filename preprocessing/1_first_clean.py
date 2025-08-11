@@ -135,20 +135,20 @@ def filter_long_comments(df, max_words=300, save_filtered=True, output_dir=None)
     long_comments = df[long_comments_mask].copy()
     long_count = len(long_comments)
     
-    print(f"\n📊 THỐNG KÊ COMMENT DÀI:")
+    print(f"\nTHỐNG KÊ COMMENT DÀI:")
     print(f"  - Tổng comments: {total_comments:,}")
     print(f"  - Comments dài (>{max_words} từ): {long_count:,} ({long_count/total_comments*100:.2f}%)")
     print(f"  - Comments giữ lại: {total_comments - long_count:,} ({(total_comments - long_count)/total_comments*100:.2f}%)")
     
     if long_count > 0:
-        print(f"\n🔍 PHÂN TÍCH COMMENTS DÀI:")
+        print(f"\nPHÂN TÍCH COMMENTS DÀI:")
         print(f"  - Từ ngắn nhất trong nhóm dài: {long_comments['word_count_temp'].min()}")
         print(f"  - Từ dài nhất: {long_comments['word_count_temp'].max()}")
         print(f"  - Trung bình từ trong nhóm dài: {long_comments['word_count_temp'].mean():.1f}")
         print(f"  - Median từ trong nhóm dài: {long_comments['word_count_temp'].median():.1f}")
         
         # Hiển thị một vài ví dụ comment dài nhất
-        print(f"\n📝 VÍ DỤ COMMENTS DÀI NHẤT (top 3):")
+        print(f"\nVÍ DỤ COMMENTS DÀI NHẤT (top 3):")
         top_long = long_comments.nlargest(3, 'word_count_temp')
         for i, (idx, row) in enumerate(top_long.iterrows()):
             word_count = row['word_count_temp']
@@ -173,7 +173,7 @@ def filter_long_comments(df, max_words=300, save_filtered=True, output_dir=None)
     filtered_df = filtered_df.drop('word_count_temp', axis=1)
     long_comments = long_comments.drop('word_count_temp', axis=1) if long_count > 0 else pd.DataFrame()
     
-    print(f"\n✅ ĐÃ LỌC: Còn lại {len(filtered_df):,} comments để xử lý")
+    print(f"\nĐÃ LỌC: Còn lại {len(filtered_df):,} comments để xử lý")
     
     return filtered_df, long_comments
 
@@ -192,7 +192,7 @@ def balance_comments_advanced(df, max_comments_per_post=1000):
         print("Không tìm thấy cột cần thiết để cân bằng comment")
         return df, None
     
-    # DANH SÁCH TỪ KHÓA NHẠY CẢM - CẬP NHẬT THEO YÊU CẦU
+    # DANH SÁCH TỪ KHÓA NHẠY CẢM
     preserve_keywords = [
         "phản động", "phản quốc", "phản bội", "đảng cướp", 
         "ba que", "việt cộng", "bò đỏ", "tàu cộng", "đồ đĩ",
@@ -226,7 +226,7 @@ def balance_comments_advanced(df, max_comments_per_post=1000):
         return df, None
     
     # HỎI USER VỀ CHIẾN LƯỢC LẤY COMMENTS CÓ TỪ KHÓA
-    print(f"\n🎯 CHIẾN LƯỢC LẤY COMMENTS CÓ TỪ KHÓA NHẠY CẢM:")
+    print(f"\nCHIẾN LƯỢC LẤY COMMENTS CÓ TỪ KHÓA NHẠY CẢM:")
     print(f"  1. Lấy tất cả comments có từ khóa (như trước)")
     print(f"  2. Chỉ lấy một số lượng random từ comments có từ khóa")
     
@@ -526,7 +526,7 @@ def clean_single_file(input_file, version, target, output_file=None):
         print(f"\nĐang lưu kết quả vào: {output_file}")
         save_excel_file(df, output_file)
         
-        print(f"\n✅ ĐÃ HOÀN THÀNH CLEANING!")
+        print(f"\nCleaning done!")
         print(f"Tổng số dòng ban đầu: {initial_rows:,}")
         print(f"Tổng số dòng sau khi cleaning: {len(df):,}")
         total_removed = sum(len(removed_df) for removed_df in all_removed_records) if all_removed_records else 0
@@ -539,7 +539,7 @@ def clean_single_file(input_file, version, target, output_file=None):
             for platform, count in platform_counts.items():
                 print(f"  - {platform}: {count:,} dòng ({count/len(df)*100:.1f}%)")
         
-        # Hiển thị thống kê comments per post - SỬA LẠI LOGIC
+        # Hiển thị thống kê comments per post
         if 'post_id' in df.columns and 'post_raw' in df.columns:
             # Thống kê theo unique post_raw (số bài post thực tế)
             unique_posts = df['post_raw'].nunique()
@@ -557,7 +557,7 @@ def clean_single_file(input_file, version, target, output_file=None):
             # Kiểm tra consistency giữa post_raw và post_id
             unique_post_ids = df['post_id'].nunique()
             if unique_posts != unique_post_ids:
-                print(f"  ⚠️ Có sự khác biệt giữa unique post_raw ({unique_posts}) và post_id ({unique_post_ids})!")
+                print(f"  Có sự khác biệt giữa unique post_raw ({unique_posts}) và post_id ({unique_post_ids})!")
             
             # Phân bố số comment per unique post_raw
             print(f"\nPhân bố số comments per unique post:")
@@ -637,7 +637,7 @@ def is_special_pattern(text):
     # Giữ lại các pattern đặc biệt và từ khóa có ý nghĩa
     special_patterns = [
         # Các ký hiệu đặc biệt
-        "///", "3/", "3///", "3//", "3|||",
+        "///", "3/", "3///", "3//", "3|||", "\\\\","\\|/",
         
         # Các từ viết tắt chính trị quan trọng
         "cs", "csvn", "dcsvn", "xhcn", "dcs", "vc", "vnch", "vndcch", 
@@ -706,7 +706,7 @@ def minimal_clean(text):
     Thực hiện minimal cleaning cho text:
     1. Chuẩn hóa Unicode (UTF-8)
     2. Loại bỏ URL, tag, emoji và các chỉ báo phổ biến
-    3. Chuyển về chữ thường
+    3. Lowercase 
     """
     if not isinstance(text, str):
         return ""

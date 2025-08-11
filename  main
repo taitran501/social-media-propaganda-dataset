@@ -1,0 +1,42 @@
+[33mcommit 897be5db8ec05c34a4e4f79628a7d3f1dd996494[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: taitran501 <trantantai7766@gmail.com>
+Date:   Mon Jul 7 17:34:07 2025 +0700
+
+    update README with YouTube platform and v2 dataset stats
+
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 44580b7..2ce9dd9 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -1,18 +1,23 @@[m
+ # social-media-propaganda-dataset[m
+ [m
+[31m-This project builds a Vietnamese political comment dataset from social media platforms (Facebook, Threads, TikTok, Reddit) for propaganda detection and classification.[m
+[32m+[m[32mThis project builds a Vietnamese political comment dataset from social media platforms (Facebook, Threads, TikTok, Reddit, YouTube) for propaganda detection and classification.[m
+ [m
+[31m-##  Features[m
+[32m+[m[32m## Features[m
+ [m
+[31m--  Custom DOM-based scraping (JS + Python)[m
+[31m--  Gemini API-based post summarization[m
+[32m+[m[32m- Custom DOM-based scraping (JS + Python)[m
+[32m+[m[32m- Gemini API-based post summarization[m[41m  [m
+ - Comment labeling with political-context prompts[m
+[31m-- 6-step preprocessing pipeline (normalize, deduplicate, teencode fix, etc.)[m
+[32m+[m[32m- 4-step processing pipeline: clean → summarize post → label comments → manual review[m
+[32m+[m[32m- Final 9-step preprocessing pipeline for dataset completion[m
+ [m
+ ## Structure[m
+ [m
+ - `scraping/`: Tools to extract comments from each platform[m
+[31m-- `preprocessing/`: Data cleaning and text normalization[m
+[31m-- `labeling/`: Summarization and Gemini-based annotation[m
+[31m-- `dataset/sample_dataset.csv`: Sample of 100 anonymized rows, extracted from a full cleaned set of 11,685 entries (from 17,000+ raw comments)[m
+[32m+[m[32m- `preprocessing/`: Data cleaning and text normalization pipeline[m
+[32m+[m[32m- `labeling/`: Post summarization and Gemini-based comment annotation[m
+[32m+[m[32m- `dataset/sample_dataset.csv`: Sample of 100 anonymized rows from v1[m
+ [m
+[32m+[m[32m## Dataset Versions[m
+[32m+[m
+[32m+[m[32m- **Version 1**: 17,000+ raw comments → 11,685 cleaned entries (completed)[m
+[32m+[m[32m- **Version 2**: 32,762 raw comments → 25,724 cleaned entries (labeling in progress)[m
